@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ongroundpm.com.au"),
   title: "OnGroundPM — Construction PM & Estimating, Melbourne West",
   description:
     "Fixed-price construction estimates and project management for small builders, renovators and owner-builders across Melbourne's western suburbs. Civil engineer, MIEAust, 14+ years experience.",
