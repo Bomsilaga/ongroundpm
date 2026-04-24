@@ -1,25 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Award, GraduationCap, Wrench } from "lucide-react";
+import { Award, ClipboardCheck, Calculator } from "lucide-react";
+import { siteContent } from "@/content/site";
 
-const credentials = [
-  {
-    icon: Award,
-    label: "Chartered Engineer",
-    detail: "MIEAust (Engineers Australia) · MNSE (Nigerian Society of Engineers)",
-  },
-  {
-    icon: GraduationCap,
-    label: "Master of Construction Management",
-    detail: "Deakin University — currently enrolled",
-  },
-  {
-    icon: Wrench,
-    label: "Tool Proficiency",
-    detail: "CostX · Bluebeam · Procore · BIM platforms",
-  },
-];
+const { about } = siteContent;
+
+const credentialIcons = [Award, ClipboardCheck, Calculator] as const;
 
 export default function About() {
   return (
@@ -30,7 +18,7 @@ export default function About() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          {/* Left — photo placeholder */}
+          {/* Left — team image */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -38,41 +26,23 @@ export default function About() {
             transition={{ duration: 0.7 }}
             className="relative"
           >
-            <div
-              className="aspect-[4/5] bg-cream-dark border-2 border-dashed border-sandstone/40 rounded-sm flex flex-col items-center justify-center gap-4 text-center p-8"
-              role="img"
-              aria-label="Founder photo placeholder — to be replaced"
-            >
-              <div className="w-16 h-16 rounded-full bg-sandstone/20 flex items-center justify-center">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="text-sandstone"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                </svg>
-              </div>
-              <p className="font-sans text-xs text-warm-muted/60 uppercase tracking-widest">
-                [Photo Placeholder]
-              </p>
-              <p className="font-sans text-xs text-warm-muted/40">
-                Replace with founder photo
-              </p>
+            <div className="aspect-[4/5] relative overflow-hidden rounded-sm">
+              <Image
+                src={about.teamImage}
+                alt={about.teamImageAlt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
 
             {/* Decorative stat callout */}
             <div className="absolute -bottom-6 -right-6 lg:-right-10 bg-terracotta p-6 rounded-sm">
-              <p className="font-serif text-3xl font-bold text-cream">$40M+</p>
-              <p className="font-sans text-xs text-cream/70 mt-1 uppercase tracking-wider">
-                Largest project
-                <br />
-                delivered
+              <p className="font-serif text-3xl font-bold text-cream">
+                {about.statCallout.value}
+              </p>
+              <p className="font-sans text-xs text-cream/70 mt-1 uppercase tracking-wider whitespace-pre-line">
+                {about.statCallout.label}
               </p>
             </div>
           </motion.div>
@@ -85,40 +55,24 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <p className="font-sans text-sm uppercase tracking-widest text-terracotta mb-6">
-              About
+              {about.eyebrow}
             </p>
             <h2 className="font-serif text-4xl sm:text-5xl font-bold text-charcoal mb-8 text-balance">
-              A civil engineer who&rsquo;s been on the tools and in the office.
+              {about.headline}
             </h2>
 
             <div className="space-y-5 font-sans text-base text-warm-muted leading-relaxed mb-10">
-              <p>
-                OnGroundPM was built from 14 years of international experience
-                delivering civil and commercial construction — including a $40M+
-                commercial project in Victoria. That experience spans full
-                project lifecycles: design, procurement, construction, and
-                handover.
-              </p>
-              <p>
-                The gap I kept seeing was this: small builders and
-                owner-builders were carrying real project risk without the
-                cost-management and programme discipline that larger firms
-                apply as standard. One bad estimate or one uncontrolled
-                variation can wipe a project&rsquo;s profit.
-              </p>
-              <p>
-                OnGroundPM exists to fix that — delivering the rigour of a
-                professional PM function at a scale and price that works for
-                smaller projects and sole traders.
-              </p>
+              {about.body.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
             </div>
 
             {/* Credentials list */}
             <div className="space-y-4 pt-8 border-t border-border">
-              {credentials.map((cred) => {
-                const Icon = cred.icon;
+              {about.credentials.map((cred, i) => {
+                const Icon = credentialIcons[i] ?? Award;
                 return (
-                  <div key={cred.label} className="flex items-start gap-4">
+                  <div key={cred.abbr} className="flex items-start gap-4">
                     <div className="w-8 h-8 rounded-sm bg-cream-dark flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Icon
                         size={15}
@@ -139,9 +93,21 @@ export default function About() {
               })}
             </div>
 
-            <div className="mt-8 pt-8 border-t border-border">
+            {/* Tool proficiency */}
+            <div className="mt-6 pt-6 border-t border-border">
+              <p className="font-sans text-xs text-warm-muted mb-2 uppercase tracking-widest">
+                Tool proficiency
+              </p>
+              <p className="font-sans text-sm text-charcoal">
+                {about.toolProficiency.join(" · ")}
+              </p>
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-border">
               <p className="font-sans text-xs text-warm-muted">
-                <span className="font-medium text-charcoal">Jokjeth Services Pty Ltd</span>{" "}
+                <span className="font-medium text-charcoal">
+                  Jokjeth Services Pty Ltd
+                </span>{" "}
                 trading as OnGroundPM · ABN 47 828 511 857
               </p>
             </div>

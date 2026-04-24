@@ -1,3 +1,7 @@
+import Image from "next/image";
+import { siteContent } from "@/content/site";
+
+const { brand, footer } = siteContent;
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -10,15 +14,20 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <a
               href="#"
-              className="font-serif text-2xl font-bold text-cream tracking-tight"
-              aria-label="OnGroundPM — Home"
+              aria-label={`${brand.name} — Home`}
+              className="inline-block mb-4"
             >
-              OnGroundPM
+              {/* TODO: Replace logo.jpg with an SVG for crisp scaling and transparency — the current JPG has a white background that is visible on this dark footer. */}
+              <Image
+                src={brand.logo}
+                alt={brand.logoAlt}
+                width={120}
+                height={32}
+                className="h-7 w-auto object-contain"
+              />
             </a>
-            <p className="font-sans text-sm text-white/50 mt-3 max-w-xs leading-relaxed">
-              Fixed-price construction estimates and project management for
-              small builders, renovators and owner-builders across
-              Melbourne&rsquo;s western suburbs.
+            <p className="font-sans text-sm text-white/50 mt-2 max-w-xs leading-relaxed">
+              {footer.tagline}
             </p>
             <p className="font-sans text-xs text-white/30 mt-4">
               ABN 47 828 511 857 · Jokjeth Services Pty Ltd T/A OnGroundPM
@@ -32,13 +41,7 @@ export default function Footer() {
             </p>
             <nav aria-label="Footer navigation">
               <ul className="space-y-3" role="list">
-                {[
-                  ["Services", "#services"],
-                  ["Process", "#process"],
-                  ["About", "#about"],
-                  ["FAQ", "#faq"],
-                  ["Contact", "#contact"],
-                ].map(([label, href]) => (
+                {footer.navLinks.map(({ label, href }) => (
                   <li key={href}>
                     <a
                       href={href}
@@ -75,14 +78,23 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-3 mt-6">
               <a
-                href="https://linkedin.com"
+                href={footer.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-sm bg-white/10 flex items-center justify-center hover:bg-terracotta/80 transition-colors"
                 aria-label="OnGroundPM on LinkedIn"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-white/70" aria-hidden="true">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="text-white/70"
+                  aria-hidden="true"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
                 </svg>
               </a>
             </div>
@@ -95,7 +107,7 @@ export default function Footer() {
             &copy; {year} Jokjeth Services Pty Ltd trading as OnGroundPM. All rights reserved.
           </p>
           <p className="font-sans text-xs text-white/20">
-            MIEAust · MNSE · RegPM (in progress)
+            {footer.credentialsLine}
           </p>
         </div>
       </div>

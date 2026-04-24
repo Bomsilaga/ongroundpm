@@ -23,7 +23,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* Brand palette utilities */
   --color-cream: var(--cream);
   --color-charcoal: var(--charcoal);
   --color-terracotta: var(--terracotta);
@@ -32,7 +31,6 @@
   --color-warm-muted: var(--warm-muted);
   --color-cream-dark: var(--cream-dark);
 
-  /* Font families */
   --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -45,7 +43,6 @@
 }
 
 :root {
-  /* Brand palette */
   --cream: #faf7f2;
   --cream-dark: #f0ebe3;
   --charcoal: #1a1a1a;
@@ -54,7 +51,6 @@
   --sandstone: #c4a374;
   --warm-muted: #6b6459;
 
-  /* shadcn system tokens mapped to brand */
   --background: #faf7f2;
   --foreground: #1a1a1a;
   --card: #ffffff;
@@ -76,30 +72,163 @@
   --radius: 0.5rem;
 }
 
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes expandWidth {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero animations — fire on page load */
+.hero-fade {
+  opacity: 0;
+  animation: fadeSlideUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-line {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: expandWidth 1s ease-out 0.1s forwards;
+}
+.hero-delay-1 { animation-delay: 0.15s; }
+.hero-delay-2 { animation-delay: 0.3s; }
+.hero-delay-3 { animation-delay: 0.45s; }
+.hero-delay-4 { animation-delay: 0.6s; }
+.hero-delay-5 { animation-delay: 0.75s; }
+
+/* ============================================================
+   BUTTON UTILITIES — edit these to restyle all buttons at once
+   ============================================================ */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: var(--terracotta);
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 2px solid var(--terracotta);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(184, 86, 58, 0.25);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.btn-primary:hover {
+  background-color: var(--terracotta-dark);
+  border-color: var(--terracotta-dark);
+  box-shadow: 0 4px 14px rgba(184, 86, 58, 0.35);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  color: var(--terracotta);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 2px solid var(--terracotta);
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-outline:hover {
+  background-color: var(--terracotta);
+  color: var(--cream);
+  transform: translateY(-1px);
+}
+.btn-outline:active { transform: translateY(0); }
+
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 2px solid var(--charcoal);
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s, transform 0.15s;
+}
+.btn-outline-dark:hover {
+  background-color: var(--charcoal);
+  color: var(--cream);
+  transform: translateY(-1px);
+}
+.btn-outline-dark:active { transform: translateY(0); }
+
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  color: var(--cream);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 2px solid rgba(250, 247, 242, 0.5);
+  border-radius: 4px;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.15s;
+}
+.btn-ghost-light:hover {
+  background-color: rgba(250, 247, 242, 0.1);
+  border-color: var(--cream);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   SCROLL REVEAL — used by Reveal.tsx component
+   ============================================================ */
+
+.sr-hidden {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.sr-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
-  body {
-    @apply bg-cream text-charcoal font-sans antialiased;
-  }
+  body { @apply bg-cream text-charcoal font-sans antialiased; }
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply font-serif;
-  }
+  h1, h2, h3, h4 { @apply font-serif; }
 
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -107,7 +236,4 @@
   }
 }
 
-/* Utility classes */
-.text-balance {
-  text-wrap: balance;
-}
+.text-balance { text-wrap: balance; }

@@ -1,34 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { siteContent } from "@/content/site";
 
-const credentials = [
-  {
-    abbr: "MIEAust",
-    full: "Member, Engineers Australia",
-    note: "Chartered",
-  },
-  {
-    abbr: "MNSE",
-    full: "Member, Nigerian Society of Engineers",
-    note: "Chartered",
-  },
-  {
-    abbr: "MCM",
-    full: "Master of Construction Management",
-    note: "Deakin University — in progress",
-  },
-  {
-    abbr: "RegPM",
-    full: "Registered Project Manager",
-    note: "Engineers Australia — in progress",
-  },
-  {
-    abbr: "ABN",
-    full: "47 828 511 857",
-    note: "Jokjeth Services T/A OnGroundPM",
-  },
-];
+const { credentials } = siteContent;
 
 export default function Credentials() {
   return (

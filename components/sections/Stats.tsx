@@ -1,49 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { siteContent } from "@/content/site";
 
-interface StatItem {
-  prefix?: string;
-  value: number;
-  suffix: string;
-  label: string;
-}
-
-const stats: StatItem[] = [
-  { value: 14, suffix: "+", label: "Years international experience" },
-  { prefix: "$", value: 40, suffix: "M+", label: "Largest project delivered" },
-  { value: 7, suffix: "", label: "Melbourne-west suburbs served" },
-  { value: 72, suffix: "hr", label: "Typical estimate turnaround" },
-];
+const { stats } = siteContent;
 
 function Counter({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const startedRef = useRef(false);
 
   useEffect(() => {
-    if (!isInView) return;
-    const duration = 1400;
-    const start = performance.now();
+    const el = ref.current;
+    if (!el) return;
 
-    const tick = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      setCount(Math.floor(eased * value));
-      if (progress < 1) requestAnimationFrame(tick);
-      else setCount(value);
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !startedRef.current) {
+          startedRef.current = true;
+          observer.disconnect();
 
-    requestAnimationFrame(tick);
-  }, [isInView, value]);
+          const duration = 1400;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * value));
+            if (progress < 1) requestAnimationFrame(tick);
+            else setCount(value);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3, rootMargin: "-50px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value]);
 
   return (
     <span ref={ref}>
-      {prefix}
-      {count}
-      {suffix}
+      {prefix}{count}{suffix}
     </span>
   );
 }
@@ -68,7 +66,7 @@ export default function Stats() {
               <div className="font-serif text-4xl lg:text-5xl xl:text-6xl font-bold text-cream tracking-tight leading-none">
                 <Counter
                   value={stat.value}
-                  prefix={stat.prefix}
+                  prefix={"prefix" in stat ? stat.prefix : undefined}
                   suffix={stat.suffix}
                 />
               </div>

@@ -8,6 +8,7 @@ import WhoWeHelp from "@/components/sections/WhoWeHelp";
 import Process from "@/components/sections/Process";
 import About from "@/components/sections/About";
 import Credentials from "@/components/sections/Credentials";
+import Projects from "@/components/sections/Projects";
 import Location from "@/components/sections/Location";
 import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
@@ -16,7 +17,7 @@ import Footer from "@/components/sections/Footer";
 export const metadata: Metadata = {
   title: "OnGroundPM — Construction PM & Estimating, Melbourne West",
   description:
-    "Fixed-price construction estimates and project management for small builders, renovators and owner-builders across Melbourne's western suburbs. Civil engineer, MIEAust, 14+ years experience.",
+    "Fixed-price construction estimates and project management for small builders, renovators and owner-builders across Melbourne's western suburbs. MIEAust, 14+ years construction delivery experience.",
 };
 
 export default function HomePage() {
@@ -32,6 +33,7 @@ export default function HomePage() {
         <Process />
         <About />
         <Credentials />
+        <Projects />
         <Location />
         <FAQ />
         <Contact />
