@@ -14,9 +14,11 @@ export const siteContent = {
     legalName: "Jokjeth Services Pty Ltd",
     tradingAs: "OnGroundPM",
     abn: "47 828 511 857",
-    logo: "/logo.jpg",
+    logo: "/logo.png",          // swap file here when you replace the image
     logoAlt: "OnGroundPM logo",
     tagline: "Accurate costs. Honest timelines.",
+    logoHeightHeader: 72,       // px — increase or decrease to resize the header logo
+    logoHeightFooter: 48,       // px — increase or decrease to resize the footer logo
   },
 
   // ----------------------------------------------------------

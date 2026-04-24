@@ -21,9 +21,10 @@ export default function Footer() {
               <Image
                 src={brand.logo}
                 alt={brand.logoAlt}
-                width={160}
-                height={44}
-                className="h-10 w-auto object-contain"
+                width={brand.logoHeightFooter * 4}
+                height={brand.logoHeightFooter}
+                style={{ height: brand.logoHeightFooter, width: "auto" }}
+                className="object-contain object-left"
               />
             </a>
             <p className="font-sans text-sm text-white/50 mt-2 max-w-xs leading-relaxed">

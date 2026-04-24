@@ -21,8 +21,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-cream border-b border-border ${
-        scrolled ? "shadow-sm" : "border-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-cream/95 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-cream/80 backdrop-blur-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -33,13 +35,13 @@ export default function Header() {
             className="flex items-center gap-2"
             aria-label={`${brand.name} — Home`}
           >
-            {/* TODO: Replace logo.jpg with an SVG for crisp scaling and transparency — keeping header bg-cream until then to prevent white-box artefact. */}
             <Image
               src={brand.logo}
               alt={brand.logoAlt}
-              width={200}
-              height={52}
-              className="h-12 w-auto object-contain"
+              width={brand.logoHeightHeader * 4}
+              height={brand.logoHeightHeader}
+              style={{ height: brand.logoHeightHeader, width: "auto" }}
+              className="object-contain object-left"
               priority
               onError={(e) => {
                 // Fall back to text wordmark if logo not yet uploaded
